@@ -48,7 +48,7 @@ class strongswan::base {
       mode    => '0500';
   }
   concat{'strongswan_puppet_managed_hosts':
-    path    => "${strongswan::config_dir}/hosts/puppet_managed.conf":
+    path    => "${strongswan::config_dir}/hosts/puppet_managed.conf",
     require => Package['strongswan'],
     notify  => Service['ipsec'],
     owner   => 'root',
