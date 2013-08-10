@@ -18,7 +18,7 @@ define strongswan::remote_host(
   }
 
   if $ensure == 'present' {
-    Concat::Fragment["${strongswan::config_dir}/hosts/${name}.conf"]{
+    Concat::Fragment["strongswan_remote_host_${name}"]{
       content => template('strongswan/remote_host.erb'),
       owner   => 'root',
       group   => 0,
