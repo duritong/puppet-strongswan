@@ -10,14 +10,15 @@ define strongswan::remote_host(
   $right_cert_name    = $name,
   $right_cert_content = 'absent'
 ){
-  file{"${strongswan::config_dir}/hosts/${name}.conf":
+  concat::fragment{"strongswan_remote_host_${name}":
+    target  => 'strongswan_puppet_managed_hosts',
     ensure  => $ensure,
     require => Package['strongswan'],
     notify  => Service['ipsec'],
   }
 
   if $ensure == 'present' {
-    File["${strongswan::config_dir}/hosts/${name}.conf"]{
+    Concat::Fragment["strongswan_remote_host_${name}"]{
       content => template('strongswan/remote_host.erb'),
       owner   => 'root',
       group   => 0,
