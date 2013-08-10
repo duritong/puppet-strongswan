@@ -32,8 +32,6 @@ class strongswan::base {
       purge   => true,
       force   => true,
       recurse => true;
-    "${strongswan::config_dir}/hosts/__dummy__.conf":
-      ensure  => 'present';
     '/etc/ipsec.conf':
       content => template('strongswan/ipsec.conf.erb');
     "/usr/local/sbin/${binary_name}_connected_hosts":
@@ -48,6 +46,14 @@ class strongswan::base {
       content => template('strongswan/scripts/start_unconnected.sh.erb'),
       notify  => undef,
       mode    => '0500';
+  }
+  concat{'strongswan_puppet_managed_hosts':
+    path    => "${strongswan::config_dir}/hosts/puppet_managed.conf":
+    require => Package['strongswan'],
+    notify  => Service['ipsec'],
+    owner   => 'root',
+    group   => 0,
+    mode    => '0400';
   }
 
   service{'ipsec':

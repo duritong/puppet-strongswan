@@ -10,7 +10,8 @@ define strongswan::remote_host(
   $right_cert_name    = $name,
   $right_cert_content = 'absent'
 ){
-  file{"${strongswan::config_dir}/hosts/${name}.conf":
+  concat::fragment{"strongswan_remote_host_${name}":
+    target  => "${strongswan::config_dir}/hosts/puppet_managed.conf",
     ensure  => $ensure,
     require => Package['strongswan'],
     notify  => Service['ipsec'],
