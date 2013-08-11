@@ -2,9 +2,10 @@
 define strongswan::cert(
   $ensure = 'present',
   $cert   = 'absent'
+  $source = 'absent'
 ) {
-  if ($cert == 'absent') and ($ensure == 'present'){
-    fail("You need to pass some \$cert content for ${name} if it should be present")
+  if ($cert == 'absent') and ($source == 'absent') and ($ensure == 'present'){
+    fail("You need to pass some \$cert content or source for ${name} if it should be present")
   }
 
   file{"${strongswan::cert_dir}/certs/${name}.asc":
@@ -15,10 +16,18 @@ define strongswan::cert(
 
   if $ensure == 'present' {
     File["${strongswan::cert_dir}/certs/${name}.asc"]{
-      content => $cert,
       owner   => 'root',
       group   => 0,
       mode    => '0400',
+    }
+    if $cert == 'absent' {
+      File["${strongswan::cert_dir}/certs/${name}.asc"]{
+        content => $cert,
+      }
+    } else {
+      File["${strongswan::cert_dir}/certs/${name}.asc"]{
+        source => $source,
+      }
     }
   }
 }
