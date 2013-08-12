@@ -1,8 +1,8 @@
 # manage a cert snippet that we want to include
 define strongswan::cert(
   $ensure = 'present',
-  $cert   = 'absent'
-  $source = 'absent'
+  $cert   = 'absent',
+  $source = 'absent',
 ) {
   if ($cert == 'absent') and ($source == 'absent') and ($ensure == 'present'){
     fail("You need to pass some \$cert content or source for ${name} if it should be present")
