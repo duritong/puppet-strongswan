@@ -20,7 +20,7 @@ define strongswan::cert(
       group   => 0,
       mode    => '0400',
     }
-    if $cert == 'absent' {
+    if $cert != 'absent' {
       File["${strongswan::cert_dir}/certs/${name}.asc"]{
         content => $cert,
       }
