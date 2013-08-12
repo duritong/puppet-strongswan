@@ -8,8 +8,8 @@ define strongswan::remote_host(
   $left_subnet        = [],
   $right_id           = $name,
   $right_cert_name    = $name,
-  $right_cert_content = 'absent'
-  $right_cert_source  = 'absent'
+  $right_cert_content = 'absent',
+  $right_cert_source  = 'absent',
 ){
   concat::fragment{"strongswan_remote_host_${name}":
     target  => 'strongswan_puppet_managed_hosts',
