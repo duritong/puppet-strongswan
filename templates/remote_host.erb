@@ -23,6 +23,9 @@ conn <%= name %>
 <% end -%>
         type=transport
         auto=start
+<% unless scope.lookupvar('strongswan::forceencaps') -%>
+        forceencaps=yes
+<% end -%>
 <% else -%>
 # placeholder to not add ourself to the hostlist
 # this is due to a limitations how puppet can collect

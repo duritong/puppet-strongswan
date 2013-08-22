@@ -12,6 +12,9 @@ conn %default
         mobike=no
         rightsendcert=never
         leftsendcert=never
+<% unless scope.lookupvar('strongswan::forceencaps') -%>
+        forceencaps=yes
+<% end -%>
         left=<%= scope.lookupvar('strongswan::default_left_ip_address') %>
         leftcert=<%= scope.lookupvar('::fqdn') %>.asc
         leftid=@<%= scope.lookupvar('::fqdn') %>
