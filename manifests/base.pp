@@ -24,6 +24,7 @@ class strongswan::base {
   file{
     '/etc/ipsec.secrets':
       content => ": RSA ${::fqdn}.pem\n";
+      
     # this is needed because if the glob-include in the config
     # doesn't find anything it fails.
     "${strongswan::config_dir}/hosts":
@@ -31,14 +32,17 @@ class strongswan::base {
       purge   => true,
       force   => true,
       recurse => true;
+
     "${strongswan::config_dir}/hosts/__dummy__.conf":
       ensure  => 'present';
+
     '/etc/ipsec.conf':
       content => template('strongswan/ipsec.conf.erb');
+
     "/usr/local/sbin/${binary_name}_connected_hosts":
       content => "#!/bin/bash\n${strongswan::binary} status | grep ESTABLISHED | awk -F\\[ '{ print \$1 }'\n",
       notify  => undef,
-      mode    => '0500';
+      mode    => 0500;
   }
 
   service{'ipsec':

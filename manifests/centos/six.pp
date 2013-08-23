@@ -18,14 +18,14 @@ class strongswan::centos::six inherits strongswan::base {
     before  => Exec['ipsec_privatekey'],
     owner   => root,
     group   => 0,
-    mode    => '0600';
+    mode    => 0600;
   }
 
   file{'/etc/sysconfig/strongswan':
     content => "config='/etc/strongswan/strongswan.conf'\n",
     notify  => Service['ipsec'],
-    owner   => 'root',
+    owner   => root,
     group   => 0,
-    mode    => '0644';
+    mode    => 0644;
   }
 }
