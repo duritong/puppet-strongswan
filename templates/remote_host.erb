@@ -23,7 +23,7 @@ conn <%= name %>
 <% end -%>
         type=transport
         auto=start
-<% unless scope.lookupvar('strongswan::forceencaps') -%>
+<% if scope.lookupvar('strongswan::forceencaps') -%>
         forceencaps=yes
 <% end -%>
 <% else -%>
