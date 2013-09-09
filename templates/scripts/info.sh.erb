@@ -1,0 +1,8 @@
+#!/bin/bash
+connected=`<%= scope.lookupvar('strongswan::base::binary_name') %>_connected_hosts`
+grep -E '^conn' <%= scope.lookupvar('strongswan::config_dir') %>/hosts/* | cut -d' ' -f2 | while read line; do
+  host=`basename $line '.conf'`
+  echo $connected | grep -q $host
+  ([ $? -eq 0 ] && echo "+ ${host}") || echo "  ${host}"
+done
+
