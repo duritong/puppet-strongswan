@@ -1,7 +1,7 @@
 puppet-strongswan
 =================
 
-Puppet module to manage strongswan VPN dealie
+Puppet module to manage strongswan VPN services
 
 ## Usage
 (Defaults shown)
