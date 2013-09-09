@@ -16,9 +16,9 @@ class strongswan::base {
   File {
     require => Package['strongswan'],
     notify  => Service['ipsec'],
-    owner   => 'root',
+    owner   => root,
     group   => 0,
-    mode    => '0400',
+    mode    => 0400,
   }
 
   $binary_name = basename($strongswan::binary)
@@ -46,7 +46,7 @@ class strongswan::base {
       content => template('strongswan/scripts/info.sh.erb'),
       notify  => undef,
       mode    => 0500;
-      
+
     "/usr/local/sbin/${binary_name}_start_unconnected":
       content => template('strongswan/scripts/start_unconnected.sh.erb'),
       notify  => undef,

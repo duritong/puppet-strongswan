@@ -31,8 +31,8 @@ class strongswan::centos::six inherits strongswan::base {
 
   file{'/etc/profile.d/strongswan.sh':
     content => "alias ipsec='strongswan'\n",
-    owner   => 'root',
+    owner   => root,
     group   => 0,
-    mode    => '0644';
+    mode    => 0644;
   }
 }
