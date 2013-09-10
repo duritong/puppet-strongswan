@@ -16,9 +16,9 @@ define strongswan::cert(
 
   if $ensure == 'present' {
     File["${strongswan::cert_dir}/certs/${name}.asc"]{
-      owner   => 'root',
+      owner   => root,
       group   => 0,
-      mode    => '0400',
+      mode    => 0400,
     }
     if $cert != 'absent' {
       File["${strongswan::cert_dir}/certs/${name}.asc"]{

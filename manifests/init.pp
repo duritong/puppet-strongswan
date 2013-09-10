@@ -27,6 +27,7 @@ class strongswan(
             require => Class['monkeysphere'],
           }
         }
+
         default: {
           $config_dir = '/etc/strongswan'
           $cert_dir   = '/etc/strongswan/ipsec.d'
@@ -37,6 +38,7 @@ class strongswan(
         }
       }
     }
+
     default: {
       $config_dir = '/etc/ipsec.d'
       $cert_dir   = '/etc/ipsec.d'
@@ -64,6 +66,7 @@ class strongswan(
     shorewall::rules::ipsec{
       $strongswan::shorewall_source:
     }
+    
     if $ipsec_nat {
       include shorewall::rules::ipsec_nat
     }

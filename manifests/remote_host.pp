@@ -21,9 +21,9 @@ define strongswan::remote_host(
   if $ensure == 'present' {
     Concat::Fragment["strongswan_remote_host_${name}"]{
       content => template('strongswan/remote_host.erb'),
-      owner   => 'root',
+      owner   => root,
       group   => 0,
-      mode    => '0400',
+      mode    => 0400,
     }
   }
 
@@ -37,7 +37,7 @@ define strongswan::remote_host(
       }
     } else {
       Strongswan::Cert[$right_cert_name]{
-        ensure => 'absent',
+        ensure => absent,
       }
     }
   }
